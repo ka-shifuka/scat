@@ -1,0 +1,12 @@
+{
+	"$schema": "https://raw.githubusercontent.com/luals/vscode-lua/master/setting/schema.json",
+	"comment": "change stuf here",
+	"diagnostics.disable": [
+		"duplicate-set-field",
+		"missing-fields"
+	],
+	"workspace.library": [
+		"$HOME/ex-repo/lua-addons/love.lua"
+	],
+	"runtime.version": "LuaJIT"
+}
