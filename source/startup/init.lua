@@ -5,6 +5,4 @@ function Startup()
 	SoundEffect = require "source.startup.load-sound"
 
 	require "source.startup.require"
-
-	love.graphics.setBackgroundColor(0.1, 0.3, 0.3)
 end

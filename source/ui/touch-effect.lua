@@ -45,7 +45,7 @@ touchEffect.draw = function(self)
 
 	love.graphics.setColor(1, 1, 1, self.opacity)
 
-	love.graphics.scale(2)
+	love.graphics.scale(2.5)
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.sprite, -16, -16)
 

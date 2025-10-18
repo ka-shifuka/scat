@@ -21,8 +21,22 @@ Ball.update = function(self, dt)
 		local finished = self.blowTween:update(dt)
 
 		if finished then
+			self.isblow = true
+
 			Entity.remove(EntityId.BALL, self.index)
 		end
+	end
+
+	if self.x + self.radius >= love.graphics.getWidth() then
+		self.veloX = -math.abs(self.veloX)
+	elseif self.x - self.radius < 0 then
+		self.veloX = math.abs(self.veloX)
+	end
+
+	if self.y + self.radius >= love.graphics.getHeight() then
+		self.veloY = -math.abs(self.veloY)
+	elseif self.y - self.radius < 0 then
+		self.veloY = math.abs(self.veloY)
 	end
 end
 
@@ -30,7 +44,7 @@ Ball.draw = function(self)
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)
 
-	love.graphics.setColor(1, 1, 1, self.opacity)
+	love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.opacity)
 
 	love.graphics.circle("fill", 0, 0, self.radius)
 
@@ -47,7 +61,6 @@ Ball.pressed = function(self, x, y)
 	end
 end
 
-
 ---@param x number The x position
 ---@param y number The y position
 ---@param options? Ball.Options
@@ -58,8 +71,8 @@ Ball.new = function(self, x, y, options)
 	instance.y = y
 	instance.radius = 100
 
-	instance.veloX = math.random(-200, 200)
-	instance.veloY = math.random(-200, 200)
+	instance.veloX = math.random(-500, 500)
+	instance.veloY = math.random(-500, 500)
 
 	instance.opacity = 0
 
@@ -67,9 +80,27 @@ Ball.new = function(self, x, y, options)
 	instance.blowTween = nil
 	instance.pressedCount = 0
 
+	instance.isblow = false
+
 	instance.options = options or {}
 
 	instance.index = 0
+
+	local randomColor = {
+		"#e55858",
+		"#96b1e7",
+		"#f3ba79",
+		"#c971a1"
+	}
+
+	instance.color = Utils.hrgba(randomColor[math.random(1, #randomColor)])
+
+	Timer.after(math.random(1, 5), function()
+		if instance.isblow then return end
+		if instance.blowTween then return end
+
+		instance.blowTween = Tween.new(0.5, instance, { opacity = 0, radius = 0 }, "inOutBack")
+	end)
 
 	setmetatable(instance, self)
 	return instance ---@type Ball
