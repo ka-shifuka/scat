@@ -16,6 +16,8 @@ touchEffect.update = function(self, dt)
 
 			if q == 1 then
 				SoundEffect.cat_2:clone():play()
+			elseif q == 2 then
+				SoundEffect.cat_pur:play()
 			end
 
 			local rx = math.random(-100, 100)

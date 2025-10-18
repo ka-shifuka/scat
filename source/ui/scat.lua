@@ -1,3 +1,4 @@
+---@class Ui.Scat
 local scat = {}
 scat.x = love.graphics.getWidth() / 2
 scat.y = love.graphics.getHeight() - 64 * 4
@@ -6,9 +7,14 @@ scat.offsetY = 0
 scat.angel = 0
 scat.tween = nil
 
-scat.sprite = love.graphics.newImage("assets/scat/cat-2.png")
+scat.sprite = love.graphics.newImage("assets/scat/cat orange.png")
+scat.grid = Anim8.newGrid(64, 128, scat.sprite:getWidth(), scat.sprite:getHeight())
+scat.anim = Anim8.newAnimation(scat.grid("1-8", 1), 0.08, "pauseAtEnd")
 
 scat.update = function(self, dt)
+	self.anim:update(dt)
+
+
 	if self.tween then
 		local finished = self.tween:update(dt)
 
@@ -26,6 +32,11 @@ scat.pressed = function(self, x, y)
 
 	self.tween = Tween.new(AnimDuration.TOUCH_EFFECT, self, { offsetY = yd / 3, offsetX = xd / 3, angel = angel },
 		"inOutBack")
+
+	if math.random(1, 3) == 2 then
+		self.anim:gotoFrame(1)
+		self.anim:resume()
+	end
 end
 
 scat.draw = function(self)
@@ -34,7 +45,7 @@ scat.draw = function(self)
 
 	love.graphics.scale(4)
 	love.graphics.rotate(self.angel)
-	love.graphics.draw(self.sprite, -32, 0)
+	self.anim:draw(self.sprite, -32, 0)
 
 	love.graphics.pop()
 end

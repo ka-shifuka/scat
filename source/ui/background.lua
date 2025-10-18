@@ -3,12 +3,26 @@ background.grid = {}
 
 background.canvas = love.graphics.newCanvas()
 
-background.init = function(self, size)
-	local column = math.floor(love.graphics.getWidth() / size) + 1
-	local rows = math.floor(love.graphics.getHeight() / size) + 1
+background.update = function(self, dt)
+	for _, value in ipairs(self.grid) do
+		value.x = value.x + 25 * dt
+		value.y = value.y + 25 * dt
 
-	local ox = 0
-	local oy = 0
+		if value.x > value.initX + value.size then
+			value.x = value.initX
+		end
+		if value.y > value.initY + value.size then
+			value.y = value.initY
+		end
+	end
+end
+
+background.init = function(self, size)
+	local column = math.floor(love.graphics.getWidth() / size) + 5
+	local rows = math.floor(love.graphics.getHeight() / size) + 5
+
+	local ox = -size * 2
+	local oy = -size * 2
 
 	---@diagnostic disable-next-line :unused-local
 	for i = 1, rows, 1 do
@@ -17,6 +31,8 @@ background.init = function(self, size)
 			local t = {
 				x = ox,
 				y = oy,
+				initX = ox,
+				initY = oy,
 				size = size
 			}
 			table.insert(self.grid, t)
@@ -24,7 +40,7 @@ background.init = function(self, size)
 			ox = ox + size
 		end
 		oy = oy + size
-		ox = 0
+		ox = -size * 2
 	end
 end
 
@@ -34,6 +50,7 @@ background.initCanvasBuffer = function(self)
 	for _, value in ipairs(self.grid) do
 		love.graphics.rectangle("line", value.x, value.y, value.size, value.size)
 	end
+
 	love.graphics.setCanvas()
 end
 

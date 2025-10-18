@@ -31,4 +31,15 @@ Utils.lerp = function(a, b, t)
 	return a + (b - a) * t
 end
 
+Utils.randomColor = function()
+	local randomColor = {
+		"#e55858",
+		"#96b1e7",
+		"#f3ba79",
+		"#c971a1"
+	}
+
+	return Utils.hrgba(randomColor[math.random(1, #randomColor)])
+end
+
 return Utils

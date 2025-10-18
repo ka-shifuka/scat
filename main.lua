@@ -14,27 +14,24 @@ love.load = function()
 		Entity.add(EntityId.BALL, b)
 	end)
 
-	Ui.background:init(100)
+	SoundEffect.music.fat_cat:setLooping(true)
+	SoundEffect.music.fat_cat:play()
+
+	Ui:init()
 end
 
 love.update = function(dt)
 	Timer.update(dt)
 	Entity.update(dt)
 
-	Ui.scat:update(dt)
+	Gamestate:update(dt)
+	Ui:update(dt)
 end
 
 love.draw = function()
-	--- If something have a canvas buffer draw here
-	Ui.background:initCanvasBuffer()
-	Ui.gradientBackground:initCanvasBuffer()
-
-	Ui.gradientBackground:drawCanvas()
-	Ui.background:drawCanvas()
-
+	Ui:drawBackground()
 	Entity.draw()
-
-	Ui.scat:draw()
+	Ui:draw()
 end
 
 love.mousepressed = function(x, y, button)
@@ -44,6 +41,12 @@ love.mousepressed = function(x, y, button)
 
 		Entity.pressed(x, y)
 
-		Ui.scat:pressed(x, y)
+		Ui:pressed(x, y)
+	end
+end
+
+love.mousereleased = function(x, y, button)
+	if button == 1 then
+		Ui:released(x, y)
 	end
 end
