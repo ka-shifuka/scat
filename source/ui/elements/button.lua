@@ -4,7 +4,7 @@
 ---@field width number width of the button
 ---@field height number Height of the button
 ---@field text string The text to display
----@field font love.font Font style
+---@field font love.graphics.Font Font style
 ---@field border boolean
 
 ---@class UI.Element.Button : Ui.Element.Button_Instance
@@ -18,7 +18,7 @@ button.onPress = function(self, fun)
 	return self
 end
 ---@param fun fun()
-button.onRelese = function(self, fun)
+button.onRelease = function(self, fun)
 	self._on_release_handler = fun
 
 	return self
@@ -49,7 +49,7 @@ button.draw = function(self)
 	love.graphics.pop()
 end
 
----@param param Ui.Element.Button_Instance
+---@param param Ui.Element.ButtonParam
 ---@return UI.Element.Button
 button.new = function(self, param)
 	---@class Ui.Element.Button_Instance
@@ -62,8 +62,9 @@ button.new = function(self, param)
 	instance.font = param.font or love.graphics.newFont(24)
 	instance.border = param.border or false
 
-	instance._on_press_handler = nil
-	instance._on_release_handler = nil
+	--- event handler
+	instance._on_press_handler = NOOP
+	instance._on_release_handler = NOOP
 
 	setmetatable(instance, self)
 	return instance ---@type UI.Element.Button

@@ -11,8 +11,7 @@ gameplayStateButton.pause = button:new({
 	text = "󰏤",
 }):onPress(function()
 	Ui.state = UiState.PAUSE
-end):onRelese(function()
-	Ui.state = UiState.GAME_PLAY
+	Gamestate.state = State.PAUSE
 end)
 
 gameplayStateButton.pressed = function(self, x, y)
@@ -20,6 +19,10 @@ gameplayStateButton.pressed = function(self, x, y)
 end
 gameplayStateButton.released = function(self, x, y)
 	self.pause:release(x, y)
+end
+
+gameplayStateButton.draw = function(self)
+	self.pause:draw()
 end
 
 return gameplayStateButton

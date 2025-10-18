@@ -6,7 +6,11 @@ score.drawHeader = function(self)
 	love.graphics.push()
 
 	love.graphics.setFont(Font.protoBoldLg)
-	love.graphics.print("Score", love.graphics.getWidth() / 2 - Font.protoBoldLg:getWidth("Score") / 2, 50)
+
+	local text = "Score"
+	---local text = "Joseph louis lagrance"
+
+	love.graphics.print(text, love.graphics.getWidth() / 2 - Font.protoBoldLg:getWidth(text) / 2, 50)
 
 	local gameScore = tostring(Gamestate.score)
 	love.graphics.print(gameScore, love.graphics.getWidth() / 2 - Font.protoBoldLg:getWidth(gameScore) / 2, 100)

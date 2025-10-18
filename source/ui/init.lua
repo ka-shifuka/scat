@@ -5,6 +5,7 @@ local scat = require "source.ui.scat"
 local score = require "source.ui.score"
 local health = require "source.ui.health"
 local gameplayStateButton = require "source.ui.gameplay-state-button"
+local pauseStateButton = require "source.ui.pause-state-button"
 
 ---@class Ui
 local Ui = {}
@@ -15,6 +16,7 @@ Ui.scat = scat
 Ui.score = score
 Ui.health = health
 Ui.gameplayStateButton = gameplayStateButton
+Ui.pauseStateButton = pauseStateButton
 Ui.state = UiState.GAME_PLAY
 
 Ui.init = function(self)
@@ -22,18 +24,21 @@ Ui.init = function(self)
 end
 
 Ui.pressed = function(self, x, y)
-	self.scat:pressed(x, y)
-	self.gameplayStateButton:pressed(x, y)
+	if self.state == UiState.GAME_PLAY then
+		self.scat:pressed(x, y)
+		self.gameplayStateButton:pressed(x, y)
+	end
 end
 Ui.released = function(self, x, y)
-	self.gameplayStateButton:released(x, y)
+	if self.state == UiState.GAME_PLAY then
+		self.gameplayStateButton:released(x, y)
+	end
 end
 
 Ui.update = function(self, dt)
 	self.scat:update(dt)
 	self.background:update(dt)
 end
-
 
 Ui.drawBackground = function(self)
 	self.gradientBackground:initCanvasBuffer()
@@ -47,11 +52,14 @@ Ui.draw = function(self)
 	if self.state == UiState.GAME_PLAY then
 		self.scat:draw()
 		self.health:draw()
-		self.gameplayStateButton.pause:draw()
-
 		self.score:drawHeader()
+
+		self.gameplayStateButton:draw()
 	end
-	self.gameplayStateButton.pause:draw()
+
+	if self.state == UiState.PAUSE then
+		self.pauseStateButton:draw()
+	end
 end
 
 return Ui

@@ -23,6 +23,17 @@ Gamestate.increaseHealth = function(self, num)
 	end
 end
 
+Gamestate.init = function(self)
+	--- create ball every 1 second
+	Timer.every(1, function()
+		local x = math.random(150, love.graphics.getWidth() - 150)
+		local y = math.random(250, love.graphics.getHeight() - 250)
+
+		local b = Ball:new(x, y)
+		Entity.add(EntityId.BALL, b)
+	end)
+end
+
 Gamestate.update = function(self, dt)
 	self:decreaseHealth(0.1)
 end

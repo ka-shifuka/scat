@@ -56,7 +56,7 @@ Ball.pressed = function(self, x, y)
 
 		self.pressedCount = self.pressedCount + 1
 
-		Gamestate:addScore(1)
+		Gamestate:addScore(self.pressedCount)
 		Gamestate:increaseHealth(5)
 
 		local scoreBlow = Ui.score:new(Gamestate.score)

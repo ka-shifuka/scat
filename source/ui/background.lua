@@ -3,15 +3,25 @@ background.grid = {}
 
 background.canvas = love.graphics.newCanvas()
 
+local dx = math.random(-50, 50)
+local dy = math.random(-50, 50)
+
 background.update = function(self, dt)
 	for _, value in ipairs(self.grid) do
-		value.x = value.x + 25 * dt
-		value.y = value.y + 25 * dt
+		value.x = value.x + dx * dt
+		value.y = value.y + dy * dt
 
 		if value.x > value.initX + value.size then
 			value.x = value.initX
 		end
 		if value.y > value.initY + value.size then
+			value.y = value.initY
+		end
+
+		if value.x < value.initX - value.size then
+			value.x = value.initX
+		end
+		if value.y < value.initY - value.size then
 			value.y = value.initY
 		end
 	end

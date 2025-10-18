@@ -6,6 +6,8 @@ do --- Enum
 	State = require "source.enum.state"
 end
 
+function NOOP() end
+
 --- Library
 Tween = require "vendor.tween"
 Timer = require "vendor.timer"
