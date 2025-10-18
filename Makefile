@@ -1,6 +1,6 @@
 DIST_FOLDER = _dist
 GAME_LOVE = ${DIST_FOLDER}/game.love
-EXCLUDE_ZIP = _dist/**\* .git/**\* Makefile .gitignore .editorconfig .luarc.json .make.lua _web/**\*
+EXCLUDE_ZIP = _dist/**\* .git/**\* Makefile .gitignore .editorconfig .luarc.json .make.lua _web/**\* docs/**\*
 
 zip:
 	${MAKE} destroy

@@ -18,12 +18,16 @@ touchEffect.update = function(self, dt)
 				SoundEffect.cat_2:clone():play()
 			end
 
+			local rx = math.random(-100, 100)
+			local ry = math.random(-100, 100)
+			local ra = math.rad(math.random(-45, 45))
+
 			self.endtween = Tween.new(AnimDuration.TOUCH_EFFECT, self,
 				{
-					offsetX = math.random(100, -100),
-					offsetY = math.random(100, -100),
+					offsetX = rx,
+					offsetY = ry,
 					opacity = 0,
-					angle = math.rad(math.random(-45, 45))
+					angle = ra,
 				}, "inOutBack")
 		end
 	end
