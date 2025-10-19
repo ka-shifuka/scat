@@ -3,6 +3,7 @@
 local UiState = {
 	GAME_PLAY = "GAME_PLAY",
 	PAUSE = "PAUSE",
+	SETTING = "SETTING"
 }
 
 ---@diagnostic disable-next-line :duplicate-doc-alias

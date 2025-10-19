@@ -6,6 +6,7 @@
 ---@field text string The text to display
 ---@field font love.graphics.Font Font style
 ---@field border boolean
+---@field align "center" | "left" | "right"
 
 ---@class UI.Element.Box : Ui.Element.Box_Instance
 local box = {}
@@ -20,7 +21,7 @@ box.draw = function(self)
 	end
 
 	love.graphics.setFont(self.font)
-	love.graphics.printf(self.text, 0, self.height / 2 - self.font:getHeight() / 2, self.width, "center")
+	love.graphics.printf(self.text, 0, self.height / 2 - self.font:getHeight() / 2, self.width, self.align)
 
 	love.graphics.pop()
 end
@@ -37,6 +38,8 @@ box.new = function(self, param)
 	instance.text = param.text or ""
 	instance.font = param.font or love.graphics.newFont(24)
 	instance.border = param.border or false
+
+	instance.align = param.align or "center"
 
 	setmetatable(instance, self)
 	return instance ---@type UI.Element.Box

@@ -11,6 +11,24 @@ scat.sprite = love.graphics.newImage("assets/scat/cat orange.png")
 scat.grid = Anim8.newGrid(64, 128, scat.sprite:getWidth(), scat.sprite:getHeight())
 scat.anim = Anim8.newAnimation(scat.grid("1-8", 1), 0.08, "pauseAtEnd")
 
+scat.init = function(self)
+	Timer.every(2, function()
+		if Ui.state == UiState.GAME_PLAY then return end
+
+		local xd = math.random(0, love.graphics.getWidth()) - self.x
+		local yd = math.random(0, love.graphics.getHeight()) - self.y
+		local angel = math.rad(math.random(-20, 20))
+
+		self.tween = Tween.new(AnimDuration.TOUCH_EFFECT, self, { offsetY = yd / 3, offsetX = xd / 3, angel = angel },
+			"inOutBack")
+
+		if math.random(1, 3) == 2 then
+			self.anim:gotoFrame(1)
+			self.anim:resume()
+		end
+	end)
+end
+
 scat.update = function(self, dt)
 	self.anim:update(dt)
 

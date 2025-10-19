@@ -3,7 +3,7 @@ local touchEffect = {}
 touchEffect.__index = touchEffect
 
 
-touchEffect.sprite = love.graphics.newImage("assets/touch-sprite/U.png")
+touchEffect.sprite = love.graphics.newImage("assets/touch-sprite/cat hand-1.png")
 
 touchEffect.update = function(self, dt)
 	if self.tween then

@@ -6,6 +6,9 @@
 ---@field text string The text to display
 ---@field font love.graphics.Font Font style
 ---@field border boolean
+---@field borderRadius number
+---@field backgroundColor table array of rgba
+---@field color table array of rgba
 
 ---@class UI.Element.Button : Ui.Element.Button_Instance
 local button = {}
@@ -14,13 +17,11 @@ button.__index = button
 ---@param fun fun()
 button.onPress = function(self, fun)
 	self._on_press_handler = fun
-
 	return self
 end
 ---@param fun fun()
 button.onRelease = function(self, fun)
 	self._on_release_handler = fun
-
 	return self
 end
 
@@ -40,12 +41,23 @@ button.draw = function(self)
 	love.graphics.translate(self.x, self.y)
 
 	if self.border then
-		love.graphics.rectangle("line", 0, 0, self.width, self.height)
+		love.graphics.rectangle("line", 0, 0, self.width, self.height, self.borderRadius, self.borderRadius)
+	end
+
+	if self.backgroundColor then
+		love.graphics.setColor(self.backgroundColor)
+		love.graphics.rectangle("fill", 0, 0, self.width, self.height)
+		love.graphics.setColor(1, 1, 1, 1)
+	end
+
+	if self.color then
+		love.graphics.setColor(self.color)
 	end
 
 	love.graphics.setFont(self.font)
 	love.graphics.printf(self.text, 0, self.height / 2 - self.font:getHeight() / 2, self.width, "center")
 
+	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.pop()
 end
 
@@ -61,6 +73,9 @@ button.new = function(self, param)
 	instance.text = param.text or ""
 	instance.font = param.font or love.graphics.newFont(24)
 	instance.border = param.border or false
+	instance.borderRadius = param.borderRadius or 0
+	instance.backgroundColor = param.backgroundColor or nil
+	instance.color = param.color or nil
 
 	--- event handler
 	instance._on_press_handler = NOOP

@@ -17,19 +17,17 @@ love.update = function(dt)
 	Timer.update(dt)
 
 	if Gamestate.state == State.GAME_PLAY then
-		Entity.update(dt)
 		Gamestate:update(dt)
 	end
 
+	Entity.update(dt)
 	Ui:update(dt)
 end
 
 love.draw = function()
 	Ui:drawBackground()
 
-	if Gamestate.state == State.GAME_PLAY then
-		Entity.draw()
-	end
+	Entity.draw()
 
 	Ui:draw()
 end
@@ -51,4 +49,8 @@ love.mousereleased = function(x, y, button)
 	if button == 1 then
 		Ui:released(x, y)
 	end
+end
+
+love.mousemoved = function(x, y, dx, dy, istouch)
+	Ui:moved(x, y, dx, dy)
 end
