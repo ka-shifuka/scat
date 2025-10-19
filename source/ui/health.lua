@@ -5,7 +5,6 @@ health.y = love.graphics.getHeight() - 50
 health.width = 320
 health.height = 30
 
-
 health.draw = function(self)
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)

@@ -12,9 +12,12 @@
 local box = {}
 box.__index = box
 
-box.draw = function(self)
+box.draw = function(self, opacity)
+	opacity = opacity or 1
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)
+
+	love.graphics.setColor(1, 1, 1, opacity)
 
 	if self.border then
 		love.graphics.rectangle("line", 0, 0, self.width, self.height)
@@ -23,6 +26,7 @@ box.draw = function(self)
 	love.graphics.setFont(self.font)
 	love.graphics.printf(self.text, 0, self.height / 2 - self.font:getHeight() / 2, self.width, self.align)
 
+	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.pop()
 end
 

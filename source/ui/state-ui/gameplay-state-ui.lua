@@ -1,6 +1,7 @@
 local button = require "source.ui.elements.button"
 
 local gameplayStateButton = {}
+gameplayStateButton.isView = false
 
 gameplayStateButton.pause = button:new({
 	x = love.graphics.getWidth() - 60,
@@ -22,6 +23,7 @@ gameplayStateButton.released = function(self, x, y)
 end
 
 gameplayStateButton.draw = function(self)
+	if not self.isView then return end
 	self.pause:draw()
 end
 

@@ -9,6 +9,7 @@ local health = require "source.ui.health"
 local gameplayStateUi = require "source.ui.state-ui.gameplay-state-ui"
 local pauseStateUi = require "source.ui.state-ui.pause-state-ui"
 local settingStateUi = require "source.ui.state-ui.setting-state-ui"
+local loadingStateUi = require "source.ui.state-ui.loading-state-ui"
 
 ---@class Ui
 local Ui = {}
@@ -22,13 +23,17 @@ Ui.health = health
 Ui.gameplayStateUi = gameplayStateUi
 Ui.pauseStateUi = pauseStateUi
 Ui.settingStateUi = settingStateUi
+Ui.loadingStateUi = loadingStateUi
 
 Ui.state = UiState.GAME_PLAY
 
 Ui.init = function(self)
 	self.background:init(100)
 	self.scat:init()
+
+	self.loadingStateUi:set(1)
 end
+
 
 Ui.pressed = function(self, x, y)
 	if self.state == UiState.SETTING then
@@ -59,9 +64,33 @@ Ui.moved = function(self, x, y, dx, dy)
 	end
 end
 
+
+
+
 Ui.update = function(self, dt)
 	self.scat:update(dt)
 	self.background:update(dt)
+
+	self.loadingStateUi:update(dt)
+
+	self.pauseStateUi:update(dt)
+
+	if self.state == UiState.GAME_PLAY then
+		self.gameplayStateUi.isView = true
+
+		self.pauseStateUi.isView = false
+		self.settingStateUi.isView = false
+	elseif self.state == UiState.PAUSE then
+		self.pauseStateUi.isView = true
+
+		self.gameplayStateUi.isView = false
+		self.settingStateUi.isView = false
+	elseif self.state == UiState.SETTING then
+		self.settingStateUi.isView = true
+
+		self.gameplayStateUi.isView = false
+		self.pauseStateUi.isView = false
+	end
 end
 
 Ui.drawBackground = function(self)
@@ -73,25 +102,15 @@ Ui.drawBackground = function(self)
 end
 
 Ui.draw = function(self)
-	if self.state == UiState.GAME_PLAY then
-		self.scat:draw()
-		self.health:draw()
-		self.score:drawHeader()
+	self.scat:draw()
+	self.health:draw()
+	self.score:drawHeader()
 
-		self.gameplayStateUi:draw()
-	end
+	self.gameplayStateUi:draw()
+	self.pauseStateUi:draw()
+	self.settingStateUi:draw()
 
-	if self.state == UiState.PAUSE then
-		self.scat:draw()
-
-		self.pauseStateUi:draw()
-	end
-
-	if self.state == UiState.SETTING then
-		self.scat:draw()
-
-		self.settingStateUi:draw()
-	end
+	self.loadingStateUi:draw()
 end
 
 return Ui

@@ -36,13 +36,16 @@ slider.release = function(self, x, y)
 	self.ispressed = false
 end
 
-slider.draw = function(self)
+slider.draw = function(self, opacity)
+	opacity = opacity or 1
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)
 
+	love.graphics.setColor(1, 1, 1, opacity)
 	love.graphics.rectangle("fill", 0, 0, self.width, self.height, 5, 5)
 
-	love.graphics.setColor(Utils.hrgba("#e55858"))
+	local c = Utils.hrgba("#e55858")
+	love.graphics.setColor(c[1], c[2], c[3], opacity)
 
 	local wbuff = Utils.lerp(0, self.width - 10, self.value)
 	if wbuff > 1 then

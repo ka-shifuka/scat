@@ -36,22 +36,27 @@ button.release = function(self, x, y)
 	end
 end
 
-button.draw = function(self)
+button.draw = function(self, opacity)
+	opacity = opacity or 1
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)
+
+	love.graphics.setColor(1, 1, 1, opacity)
 
 	if self.border then
 		love.graphics.rectangle("line", 0, 0, self.width, self.height, self.borderRadius, self.borderRadius)
 	end
 
 	if self.backgroundColor then
-		love.graphics.setColor(self.backgroundColor)
+		local c = self.backgroundColor
+		love.graphics.setColor(c[1], c[2], c[3], opacity)
 		love.graphics.rectangle("fill", 0, 0, self.width, self.height)
 		love.graphics.setColor(1, 1, 1, 1)
 	end
 
 	if self.color then
-		love.graphics.setColor(self.color)
+		local c = self.color
+		love.graphics.setColor(c[1], c[2], c[3], opacity)
 	end
 
 	love.graphics.setFont(self.font)

@@ -32,25 +32,27 @@ love.draw = function()
 	Ui:draw()
 end
 
+
+--- touch / mouse API
 love.mousepressed = function(x, y, button)
 	if button == 1 then
-		if Gamestate.state == State.GAME_PLAY then
+		if Gamestate.state == State.GAME_PLAY and not Gamestate.isloading then
 			local e = Ui.touchEffect:new(x, y)
 			Entity.add(EntityId.TOUCH_EFFECT, e)
 
 			Entity.pressed(x, y)
 		end
 
-		Ui:pressed(x, y)
+		if not Gamestate.isloading then
+			Ui:pressed(x, y)
+		end
 	end
 end
-
 love.mousereleased = function(x, y, button)
 	if button == 1 then
 		Ui:released(x, y)
 	end
 end
-
 love.mousemoved = function(x, y, dx, dy, istouch)
 	Ui:moved(x, y, dx, dy)
 end

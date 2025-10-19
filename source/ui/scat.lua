@@ -13,7 +13,7 @@ scat.anim = Anim8.newAnimation(scat.grid("1-8", 1), 0.08, "pauseAtEnd")
 
 scat.init = function(self)
 	Timer.every(2, function()
-		if Ui.state == UiState.GAME_PLAY then return end
+		--- if Ui.state == UiState.GAME_PLAY then return end
 
 		local xd = math.random(0, love.graphics.getWidth()) - self.x
 		local yd = math.random(0, love.graphics.getHeight()) - self.y

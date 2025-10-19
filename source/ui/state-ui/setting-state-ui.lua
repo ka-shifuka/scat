@@ -3,6 +3,7 @@ local box = require "source.ui.elements.box"
 local button = require "source.ui.elements.button"
 
 local settingStateUi = {}
+settingStateUi.isView = false
 
 settingStateUi.background = {
 	x = 0,
@@ -105,6 +106,8 @@ settingStateUi.released = function(self, x, y)
 end
 
 settingStateUi.draw = function(self)
+	if not self.isView then return end
+
 	self.background:draw()
 
 	self.musicVolume:draw()

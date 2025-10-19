@@ -5,6 +5,7 @@ Gamestate.health = 100
 Gamestate.maxHealth = 100
 
 Gamestate.state = State.GAME_PLAY
+Gamestate.isloading = false
 
 Gamestate.addScore = function(self, score)
 	self.score = self.score + score
@@ -14,6 +15,8 @@ Gamestate.decreaseHealth = function(self, num)
 	self.health = self.health - num
 	if self.health <= 0 then
 		self.health = 0
+
+		self.state = State.GAME_OVER
 	end
 end
 Gamestate.increaseHealth = function(self, num)
