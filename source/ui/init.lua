@@ -31,6 +31,10 @@ Ui.init = function(self)
 end
 
 Ui.pressed = function(self, x, y)
+	if self.state == UiState.SETTING then
+		self.settingStateUi:pressed(x, y)
+	end
+
 	if self.state == UiState.GAME_PLAY then
 		self.scat:pressed(x, y)
 		self.gameplayStateUi:pressed(x, y)
@@ -38,10 +42,6 @@ Ui.pressed = function(self, x, y)
 
 	if self.state == UiState.PAUSE then
 		self.pauseStateUi:pressed(x, y)
-	end
-
-	if self.state == UiState.SETTING then
-		self.settingStateUi:pressed(x, y)
 	end
 end
 Ui.released = function(self, x, y)

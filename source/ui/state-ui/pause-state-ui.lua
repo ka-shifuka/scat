@@ -26,7 +26,7 @@ pauseStateUi.titleBox = box:new({
 	width = 100,
 	height = 50,
 	font = Font.protoBoldMd,
-	text = "Paused"
+	text = "paused"
 })
 
 pauseStateUi.resumeButton = button:new({
@@ -34,7 +34,7 @@ pauseStateUi.resumeButton = button:new({
 	y = love.graphics.getHeight() / 2,
 	width = 200,
 	height = 50,
-	text = " Resume",
+	text = " resume",
 	font = Font.protoBoldSm,
 
 	border = true,
@@ -49,7 +49,7 @@ pauseStateUi.gotoSetting = button:new({
 	y = pauseStateUi.resumeButton.y + pauseStateUi.resumeButton.height + 20,
 	width = 200,
 	height = 50,
-	text = " Setting",
+	text = " setting",
 	font = Font.protoBoldSm,
 
 	border = true,
