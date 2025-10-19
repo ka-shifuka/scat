@@ -37,7 +37,7 @@ settingStateUi.musicVolume = slider:new({
 	width = 300,
 	height = 25
 }):onMove(function()
-	SoundEffect.music.fat_cat:setVolume(settingStateUi.musicVolume.value)
+	SoundEffect.music.main:setVolume(settingStateUi.musicVolume.value)
 end)
 
 settingStateUi.soundEffectVolumeLabel = box:new({

@@ -8,6 +8,7 @@ SoundEffect.cat_pur = love.audio.newSource("assets/sound/cat-purring-261128.mp3"
 
 --- Music
 SoundEffect.music = {}
-SoundEffect.music.fat_cat = love.audio.newSource("assets/sound/music/fat-cat-374614.mp3", "stream")
+-- SoundEffect.music.main = love.audio.newSource("assets/sound/music/fat-cat-374614.mp3", "stream")
+SoundEffect.music.main = love.audio.newSource("assets/sound/music/scat_main_theme.mp3", "stream")
 
 return SoundEffect

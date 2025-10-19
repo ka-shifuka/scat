@@ -6,8 +6,8 @@ love.load = function()
 	require "source.startup"
 	Startup()
 
-	SoundEffect.music.fat_cat:setLooping(true)
-	SoundEffect.music.fat_cat:play()
+	SoundEffect.music.main:setLooping(true)
+	SoundEffect.music.main:play()
 
 	Gamestate:init()
 	Ui:init()
