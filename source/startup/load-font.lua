@@ -5,7 +5,7 @@ local FontSize = {
 	LARGE = 28,
 	MEDIUM = 24,
 	SMALL = 18,
-	EXTRA_SMALL = 14
+	EXTRA_SMALL = 8
 }
 
 Font.protoBoldLg = love.graphics.newFont("assets/fonts/0xProtoNerdFont-Bold.ttf", FontSize.LARGE)

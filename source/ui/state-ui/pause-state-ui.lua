@@ -92,6 +92,14 @@ pauseStateUi.draw = function(self)
 	self.resumeButton:draw(self.opacity)
 	self.gotoSetting:draw(self.opacity)
 
+	local name = "made by Puja and Hamdan (music composer)"
+
+	love.graphics.setColor(1, 1, 1, self.opacity)
+	love.graphics.setFont(Font.protoBoldXs)
+	love.graphics.print(name, love.graphics.getWidth() / 2 - Font.protoBoldXs:getWidth(name) / 2,
+		love.graphics.getHeight() - 50)
+	love.graphics.setColor(1, 1, 1, 1)
+
 	love.graphics.pop()
 end
 

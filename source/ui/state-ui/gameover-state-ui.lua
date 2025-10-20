@@ -93,6 +93,12 @@ gameoverStateUi.draw = function(self)
 	love.graphics.print(bestScore, love.graphics.getWidth() / 2 - Font.protoBoldSm:getWidth(bestScore) / 2,
 		self.resetButton.y + self.resetButton.height + 120)
 
+	local name = "made by Puja and Hamdan (music composer)"
+
+	love.graphics.setFont(Font.protoBoldXs)
+	love.graphics.print(name, love.graphics.getWidth() / 2 - Font.protoBoldXs:getWidth(name) / 2,
+		love.graphics.getHeight() - 50)
+
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.pop()
 	love.graphics.pop()
