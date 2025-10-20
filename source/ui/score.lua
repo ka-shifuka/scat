@@ -2,7 +2,8 @@
 local score = {}
 score.__index = score
 
-score.drawHeader = function(self)
+score.drawHeader = function(self, opacity)
+	opacity = opacity or 1
 	love.graphics.push()
 
 	love.graphics.setFont(Font.protoBoldLg)
@@ -10,11 +11,14 @@ score.drawHeader = function(self)
 	local text = "Score"
 	---local text = "Joseph louis lagrance"
 
+	love.graphics.setColor(1, 1, 1, opacity)
+
 	love.graphics.print(text, love.graphics.getWidth() / 2 - Font.protoBoldLg:getWidth(text) / 2, 50)
 
 	local gameScore = tostring(Gamestate.score)
 	love.graphics.print(gameScore, love.graphics.getWidth() / 2 - Font.protoBoldLg:getWidth(gameScore) / 2, 100)
 
+	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.pop()
 end
 

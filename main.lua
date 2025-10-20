@@ -11,10 +11,16 @@ love.load = function()
 
 	Gamestate:init()
 	Ui:init()
+
+	q = 1
 end
 
 love.update = function(dt)
 	Timer.update(dt)
+	q = q + 0.00001
+	if q >= 1.8 then q = 3 end
+
+	dt = dt * q
 
 	if Gamestate.state == State.GAME_PLAY then
 		Gamestate:update(dt)

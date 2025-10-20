@@ -10,6 +10,7 @@ local gameplayStateUi = require "source.ui.state-ui.gameplay-state-ui"
 local pauseStateUi = require "source.ui.state-ui.pause-state-ui"
 local settingStateUi = require "source.ui.state-ui.setting-state-ui"
 local loadingStateUi = require "source.ui.state-ui.loading-state-ui"
+local gameoverStateUi = require "source.ui.state-ui.gameover-state-ui"
 
 ---@class Ui
 local Ui = {}
@@ -24,6 +25,7 @@ Ui.gameplayStateUi = gameplayStateUi
 Ui.pauseStateUi = pauseStateUi
 Ui.settingStateUi = settingStateUi
 Ui.loadingStateUi = loadingStateUi
+Ui.gameoverStateUi = gameoverStateUi
 
 Ui.state = UiState.GAME_PLAY
 
@@ -48,6 +50,10 @@ Ui.pressed = function(self, x, y)
 	if self.state == UiState.PAUSE then
 		self.pauseStateUi:pressed(x, y)
 	end
+
+	if self.state == UiState.GAME_OVER then
+		self.gameoverStateUi:pressed(x, y)
+	end
 end
 Ui.released = function(self, x, y)
 	if self.state == UiState.GAME_PLAY then
@@ -66,28 +72,38 @@ end
 
 
 
-
 Ui.update = function(self, dt)
 	self.scat:update(dt)
 	self.background:update(dt)
 
 	self.loadingStateUi:update(dt)
-
 	self.pauseStateUi:update(dt)
+	self.gameplayStateUi:update(dt)
+	self.settingStateUi:update(dt)
+	self.gameoverStateUi:update(dt)
 
 	if self.state == UiState.GAME_PLAY then
 		self.gameplayStateUi.isView = true
 
 		self.pauseStateUi.isView = false
 		self.settingStateUi.isView = false
+		self.gameoverStateUi.isView = false
 	elseif self.state == UiState.PAUSE then
 		self.pauseStateUi.isView = true
 
 		self.gameplayStateUi.isView = false
 		self.settingStateUi.isView = false
+		self.gameoverStateUi.isView = false
 	elseif self.state == UiState.SETTING then
 		self.settingStateUi.isView = true
 
+		self.gameoverStateUi.isView = false
+		self.gameplayStateUi.isView = false
+		self.pauseStateUi.isView = false
+	elseif self.state == UiState.GAME_OVER then
+		self.gameoverStateUi.isView = true
+
+		self.settingStateUi.isView = false
 		self.gameplayStateUi.isView = false
 		self.pauseStateUi.isView = false
 	end
@@ -103,12 +119,11 @@ end
 
 Ui.draw = function(self)
 	self.scat:draw()
-	self.health:draw()
-	self.score:drawHeader()
 
 	self.gameplayStateUi:draw()
 	self.pauseStateUi:draw()
 	self.settingStateUi:draw()
+	self.gameoverStateUi:draw()
 
 	self.loadingStateUi:draw()
 end

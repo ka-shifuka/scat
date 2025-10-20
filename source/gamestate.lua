@@ -1,6 +1,7 @@
 local Gamestate = {}
 
 Gamestate.score = 0
+Gamestate.bestScore = 0
 Gamestate.health = 100
 Gamestate.maxHealth = 100
 
@@ -17,6 +18,11 @@ Gamestate.decreaseHealth = function(self, num)
 		self.health = 0
 
 		self.state = State.GAME_OVER
+		Ui.state = UiState.GAME_OVER
+
+		if self.bestScore < self.score then
+			self.bestScore = self.score
+		end
 	end
 end
 Gamestate.increaseHealth = function(self, num)
@@ -38,7 +44,7 @@ Gamestate.init = function(self)
 end
 
 Gamestate.update = function(self, dt)
-	self:decreaseHealth(0.1)
+	self:decreaseHealth(10 * dt)
 end
 
 return Gamestate

@@ -3,10 +3,11 @@ local button = require "source.ui.elements.button"
 
 local pauseStateUi = {}
 pauseStateUi.isView = false
-pauseStateUi.offsetY = 500
+pauseStateUi.offsetY = 300
 pauseStateUi.opacity = 0
 
-pauseStateUi.tweenEnter = Tween.new(AnimDuration.UI_TRANSITION, pauseStateUi, { offsetY = 0, opacity = 1 }, "outQuart")
+pauseStateUi.tween = Tween.new(AnimDuration.UI_TRANSITION, pauseStateUi, { offsetY = 0 }, "inOutBack")
+pauseStateUi.tweenOpacity = Tween.new(AnimDuration.UI_TRANSITION, pauseStateUi, { opacity = 1 }, "outQuart")
 
 pauseStateUi.background = {
 	x = 0,
@@ -73,9 +74,11 @@ end
 
 pauseStateUi.update = function(self, dt)
 	if self.isView then
-		self.tweenEnter:update(dt)
+		self.tween:update(dt)
+		self.tweenOpacity:update(dt)
 	else
-		self.tweenEnter:update(-dt)
+		self.tween:update(-dt)
+		self.tweenOpacity:update(-dt)
 	end
 end
 

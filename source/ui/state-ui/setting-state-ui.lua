@@ -5,17 +5,26 @@ local button = require "source.ui.elements.button"
 local settingStateUi = {}
 settingStateUi.isView = false
 
+settingStateUi.offsetY = 300
+settingStateUi.opacity = 0
+
+settingStateUi.tween = Tween.new(AnimDuration.UI_TRANSITION, settingStateUi, { offsetY = 0 }, "inOutBack")
+settingStateUi.tweenOpacity = Tween.new(AnimDuration.UI_TRANSITION, settingStateUi, { opacity = 1 }, "outQuart")
+
 settingStateUi.background = {
 	x = 0,
-	y = 0,
+	y = -1000,
 	width = love.graphics.getWidth(),
-	height = love.graphics.getHeight()
+	height = love.graphics.getHeight() * 10
 }
-settingStateUi.background.draw = function(self)
+settingStateUi.background.draw = function(self, opacity)
+	opacity = opacity or 1
 	love.graphics.push()
 	love.graphics.translate(self.x, self.y)
 
-	love.graphics.setColor(Utils.hrgba("#02020233"))
+	local c = Utils.hrgba("#02020233")
+
+	love.graphics.setColor(c[1], c[2], c[3], opacity - 0.8)
 	love.graphics.rectangle("fill", 0, 0, self.width, self.height)
 
 	love.graphics.setColor(1, 1, 1, 1)
@@ -105,20 +114,30 @@ settingStateUi.released = function(self, x, y)
 	self.soundEffectVolume:release(x, y)
 end
 
+settingStateUi.update = function(self, dt)
+	if self.isView then
+		self.tween:update(dt)
+		self.tweenOpacity:update(dt)
+	else
+		self.tween:update(-dt)
+		self.tweenOpacity:update(-dt)
+	end
+end
+
 settingStateUi.draw = function(self)
-	if not self.isView then return end
+	love.graphics.push()
+	love.graphics.translate(0, self.offsetY)
 
-	self.background:draw()
+	self.background:draw(self.opacity)
 
-	self.musicVolume:draw()
-	self.musicVolumeLabel:draw()
+	self.musicVolume:draw(self.opacity)
+	self.musicVolumeLabel:draw(self.opacity)
+	self.soundEffectVolume:draw(self.opacity)
+	self.soundEffectVolumeLabel:draw(self.opacity)
+	self.resume:draw(self.opacity)
+	self.titleLabel:draw(self.opacity)
 
-	self.soundEffectVolume:draw()
-	self.soundEffectVolumeLabel:draw()
-
-	self.resume:draw()
-
-	self.titleLabel:draw()
+	love.graphics.pop()
 end
 
 return settingStateUi
